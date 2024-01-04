@@ -22,12 +22,12 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 
-# Configuration
-exportBasePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/' #trailing Slash!
-
+############################## Configuration
+basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/'#trailing Slash!
+exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
 # Verzeichnis mit einzelnen CSV Dateien
-sourcefilepath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Source/Airbnb_Prices_in_European_Cities'
+sourcefilepath = f"{basePath}Data/Source/Airbnb_Prices_in_European_Cities"
 
 #Erzeugen eines leeren Dataframes
 df = pd.DataFrame()
