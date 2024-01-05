@@ -22,7 +22,7 @@ from sklearn.preprocessing import LabelEncoder
 ############################## Configuration
 pipelineVersionNumber = 1.0
 
-basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/'#trailing Slash!
+basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/' #trailing Slash!
 exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
 # Verzeichnis mit einzelnen CSV Dateien
@@ -57,6 +57,9 @@ if os.path.isdir(sourcefilepath):
 
 # Entfernen des Index aus den einzelnen csv Dateien    
 df = df.drop(columns=['Unnamed: 0'])
+
+# Index Reset -> Index soll kontinuierlich und lückenlos sein
+df.reset_index(drop=True, inplace=True)
 
 
 ############################ Auf fehlende Werte prüfen
@@ -128,16 +131,6 @@ elif True:
     df = df[(z_scores < threshold)]
 
 
-# Boxplot der bereinigten Werte
-df.boxplot(column='realSum', showfliers=False)
-
-# Titel und Achsenbeschriftungen hinzufügen
-plt.title('Boxplot für realSum')
-
-# Diagramm anzeigen
-plt.show()
-
-
 ####################### Normalisierung der Daten
 
 min_value = df['realSum'].min()
@@ -169,7 +162,7 @@ frac_test = 1 - frac_train  # Prozentsatz für den Testdatensatz (restliche Date
 
 # DataFrame in Trainings- und Testdaten aufteilen
 train_df = df.sample(frac=frac_train, random_state=42)  # Trainingsdaten
-test_df = df.drop(train_df.index).reset_index(drop=True)  # Testdaten (Rest)
+test_df = df.drop(train_df.index).reset_index(drop=True)  # Testdaten
 
 test_df.reset_index(drop=True, inplace=True)
 
@@ -177,7 +170,7 @@ frac_test = 0.5
 frac_val = 1 - frac_test
 
 val_df = test_df.sample(frac=frac_val, random_state=42)
-test_df = test_df.drop(val_df.index).reset_index(drop=True)  # Testdaten (Rest)
+test_df = test_df.drop(val_df.index).reset_index(drop=True)  # Validationsdaten
 
 
 
@@ -186,6 +179,15 @@ test_df = test_df.drop(val_df.index).reset_index(drop=True)  # Testdaten (Rest)
 print(df.describe())
 print(df.info())
 print(df.head())
+
+# Boxplot der Werte
+df.boxplot(column='realSum', showfliers=False)
+
+# Titel und Achsenbeschriftungen hinzufügen
+plt.title('Boxplot für realSum')
+
+# Diagramm anzeigen
+plt.show()
 
 
 ############################## Export der Daten
