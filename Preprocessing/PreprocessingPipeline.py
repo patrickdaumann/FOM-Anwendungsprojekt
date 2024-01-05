@@ -7,13 +7,10 @@ Created on Sun Dec 31 15:08:34 2023
 
 
 Ziele:
-    - Zusammenfügen der CSV Dateien aus dem Ursprünglichen Dataset
-    - Duplikate Testen
-    - Fehlende Werte testen -> Zählen und Visuell aufbereiten
-    - Normalisieren der Werte wenn Sinnvoll
-    - Ausreißerbehandlung
-    	- Rausfiltern? 
     - Aufteilen in Training und Testset
+
+Versionsog:
+    - V1.0 - 05.01.2023 - Ursprüngliche Version der PP Pipeline
 """
 
 import os, re
@@ -23,6 +20,8 @@ from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 
 ############################## Configuration
+pipelineVersionNumber = 1.0
+
 basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/'#trailing Slash!
 exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
@@ -159,6 +158,29 @@ plt.title('Boxplot für realSum_Normalized')
 plt.show()
 
 
+############################## Aufteilen ist Train, Test und Validation Sets
+
+#Index des Dataframes zurücksetzen
+df.reset_index(drop=True, inplace=True)
+
+# Zufällige Aufteilung des DataFrames
+frac_train = 0.7  # Prozentsatz für den Trainingsdatensatz
+frac_test = 1 - frac_train  # Prozentsatz für den Testdatensatz (restliche Daten)
+
+# DataFrame in Trainings- und Testdaten aufteilen
+train_df = df.sample(frac=frac_train, random_state=42)  # Trainingsdaten
+test_df = df.drop(train_df.index).reset_index(drop=True)  # Testdaten (Rest)
+
+test_df.reset_index(drop=True, inplace=True)
+
+frac_test = 0.5
+frac_val = 1 - frac_test
+
+val_df = test_df.sample(frac=frac_val, random_state=42)
+test_df = test_df.drop(val_df.index).reset_index(drop=True)  # Testdaten (Rest)
+
+
+
 ############################## Übersicht der Daten
 # Ausgabe von Informationen über den Dataframe in der Konsole
 print(df.describe())
@@ -168,22 +190,45 @@ print(df.head())
 
 ############################## Export der Daten
 
-# Ganzer Datensatz
-
+# Export ja nein ?
 if True:
+    
+    exportFilenamePrefix = 'Airbnb_Prices_Full'
+    exportFilenameSuffix = f"{pipelineVersionNumber}"
+    exportFilenameExtension = '.csv'
+    
     # Ganz
-    exportFilenameFull = 'Airbnb_Prices_Full.csv'
+    exportFilenameFull = f"{exportFilenamePrefix}_V{exportFilenameSuffix}_Full{exportFilenameExtension}"
 
     
-    # Aufgeteilt für ML
-    exportFilenameTrain = 'Airbnb_Prices_Train.csv'
-    exportFilenameTest = 'Airbnb_Prices_Test.csv'
+    # Aufgeteilte Sets für machinelles Lernen
+    exportFilenameTrain = f"{exportFilenamePrefix}_V{exportFilenameSuffix}_Train{exportFilenameExtension}"
+    exportFilenameTest = f"{exportFilenamePrefix}_V{exportFilenameSuffix}_Test{exportFilenameExtension}"
+    exportFilenameVal = f"{exportFilenamePrefix}_V{exportFilenameSuffix}_Val{exportFilenameExtension}"
 
     
     #Kombinierten Dataframe exportieren
     exportFilePathFull = f"{exportBasePath}{exportFilenameFull}"
     print(f"Exportiere ganzen Datensatz nach: {exportFilePathFull}")
     df.to_csv(exportFilePathFull, index=False, sep=';')
+    print("Fertig")
+    
+    #Trainingsdaten exportieren
+    exportFilePathTrain = f"{exportBasePath}{exportFilenameTrain}"
+    print(f"Exportiere Trainingsdatensatz nach: {exportFilePathTrain}")
+    train_df.to_csv(exportFilePathTrain, index=False, sep=';')
+    print("Fertig")
+    
+    #Testdaten exportieren
+    exportFilePathTest = f"{exportBasePath}{exportFilenameTest}"
+    print(f"Exportiere Testdatensatz nach: {exportFilePathTest}")
+    test_df.to_csv(exportFilePathTest, index=False, sep=';')
+    print("Fertig")
+    
+    #Validation Daten exportieren
+    exportFilePathVal = f"{exportBasePath}{exportFilenameVal}"
+    print(f"Exportiere Validationsdatensatz nach: {exportFilePathVal}")
+    val_df.to_csv(exportFilePathVal, index=False, sep=';')
     print("Fertig")
     
 
