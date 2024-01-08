@@ -15,9 +15,11 @@ Versionsog:
 
 import os, re
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
+from scipy.stats import kstest
 
 ############################## Configuration
 pipelineVersionNumber = 1.0
@@ -195,7 +197,7 @@ plt.show()
 # Export ja nein ?
 if True:
     
-    exportFilenamePrefix = 'Airbnb_Prices_Full'
+    exportFilenamePrefix = 'Airbnb_Prices'
     exportFilenameSuffix = f"{pipelineVersionNumber}"
     exportFilenameExtension = '.csv'
     
@@ -234,14 +236,58 @@ if True:
     print("Fertig")
     
 
+############################ Verteilungsanalyse
+# Ziel: P Value der Normalverteilung für alle metrischen Columns ermitteln, Histogramme abspeichern
 
+# Ihre Daten auswählen
+metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index']]
 
+for column in metric_data.columns:
+    
+    
+    plt.figure(figsize=(6, 4))
+    plt.hist(df[column], alpha=0.5, bins='auto')
+    plt.xlabel('Werte')
+    plt.ylabel('Häufigkeit')
+    plt.title(f'Histogramm für {column}')
+    plt.savefig(f"{exportBasePath}/Figures/{column}.pdf", format='pdf')
+    plt.show()
+    
+    result = kstest(df[column], 'norm')
+
+    # Ergebnisse in der Konsole ausgeben
+    print(f'Kolmogorow-Smirnov-Test für {column}: Statistik={result.statistic:.4f}, p-Wert={result.pvalue:.4f}')
     
 
+############################### Informationen über alle metrischen Spalten erfassen und als CSV ausgeben
+stats_dict = {}
+stats_list = []
 
+for col in metric_data.columns:
+    col_data = metric_data[col]
+    stats = {
+        'Spalte': col,
+        'Median': col_data.median(),
+        'Min': col_data.min(),
+        'Max': col_data.max(),
+        'Q1': np.percentile(col_data, 25),
+        'Q3': np.percentile(col_data, 75),
+        'IQR': np.percentile(col_data, 75) - np.percentile(col_data, 25),
+        'Varianz': col_data.var(),
+        'Standardabweichung': col_data.std(),
+        'Spannweite': col_data.max() - col_data.min()
+    }
+    stats_list.append(stats)
 
+# Liste in Dataframe wandeln
+stats_df = pd.DataFrame(stats_list)
 
+# Dateinamen und Pfade für Export
+exportFilenameStats = f"{exportFilenamePrefix}_V{exportFilenameSuffix}_Stats{exportFilenameExtension}"
+exportFilePathStats = f"{exportBasePath}{exportFilenameStats}"
 
+# DataFrame in CSV exportieren
+stats_df.to_csv(exportFilePathStats, index=False, sep=';')
 
 
 
