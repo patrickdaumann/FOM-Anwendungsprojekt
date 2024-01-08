@@ -10,12 +10,13 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 
-path = "C:/Users/Dennis/Documents/Aemf1_cleaned_5000.csv"
 
-data = pd.read_csv(path, sep=';', decimal=',')
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv"
+
+data = pd.read_csv(path, sep=';', decimal='.')
 
 # Wählen Sie die relevanten Merkmale für das Clustering aus
-selected_features = data[["Price", "Person Capacity", "Cleanliness Rating", "Guest Satisfaction", "City Center (km)", "Metro Distance (km)", "Normalised Attraction Index", "Normalised Restraunt Index", "lng", "lat"]]
+selected_features = data[["realSum_Normalized", "cleanliness_rating", "room_type_encoded","guest_satisfaction_overall","bedrooms","dist", "metro_dist", "attr_index_norm", "rest_index_norm", "lng", "lat"]]
 
 # Überprüfen Sie, ob die ausgewählten Merkmale korrekt sind
 print(selected_features.head())
@@ -54,7 +55,7 @@ plt.title('Silhouette-Analyse zur Bestimmung von K')
 plt.xlabel('Anzahl der Cluster (K)')
 plt.ylabel('Silhouette-Score')
 plt.grid()
-plt.show()
+plt.show(
 
 
 
