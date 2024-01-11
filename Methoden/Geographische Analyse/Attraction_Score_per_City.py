@@ -4,11 +4,9 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from tqdm.notebook import tqdm
 
-from matplotlib.colors import Normalize
-from matplotlib import cm
 from scipy import stats
 import numpy as np
-import seaborn as sns
+
 import contextily as ctx
 
 df = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/AttractionScores.csv", sep=';',decimal='.', engine='python')
@@ -53,4 +51,4 @@ unique_cities = df_cleaned['city'].unique()
 
 # Plot for each city
 for city in tqdm(unique_cities):
-    plot_attraction_score_on_map(df, city)
+    plot_attraction_score_on_map(df_cleaned, city)
