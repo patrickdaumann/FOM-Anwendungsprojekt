@@ -7,22 +7,33 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 # Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
-path = "C:/Users/Dennis/Documents/Aemf1_cleaned_5000.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv"
 
-data = pd.read_csv(path, sep=';', decimal=',')
+data = pd.read_csv(path, sep=';', decimal='.')
 
 # Entfernen Sie die "City"-Spalte aus dem DataFrame "data"
-data = data.drop("City", axis=1)
-data = data.drop("Day", axis=1)
-data = data.drop("Attraction Index", axis=1)
-data = data.drop("Restraunt Index", axis=1)
+data = data.drop("room_type", axis=1)
+data = data.drop("city", axis=1)
+data = data.drop("daytype", axis=1)
+data = data.drop("room_shared", axis=1)
+data = data.drop("room_private", axis=1)
+data = data.drop("host_is_superhost", axis=1)
+data = data.drop("multi", axis=1)
+data = data.drop("biz", axis=1)
+data = data.drop("attr_index", axis=1)
+data = data.drop("rest_index", axis=1)
+data = data.drop("lng", axis=1)
+data = data.drop("lat", axis=1)
+data = data.drop("room_type_encoded", axis=1)
+data = data.drop("city_encoded", axis=1)
+data = data.drop("daytype_encoded", axis=1)
 
 # Konvertieren Sie kategorische Spalten in numerische mit One-Hot-Encoding
-data_encoded = pd.get_dummies(data, columns=["Room Type"])
+
 
 # Definieren Sie erneut abhängige und unabhängige Variablen
-X = data_encoded.drop("Guest Satisfaction", axis=1)
-y = data_encoded["Guest Satisfaction"]
+X = data.drop("rest_index_norm", axis=1)
+y = data["rest_index_norm"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -44,13 +55,13 @@ for column in X.columns:
     plt.figure(figsize=(8, 6))
     plt.scatter(X[column], y, alpha=0.5)
     plt.xlabel(column)
-    plt.ylabel("Guest Satisfaction")
-    plt.title(f"Guest Satisfaction vs. {column}")
+    plt.ylabel("rest_index_norm")
+    plt.title(f"rest_index_normvs. {column}")
     plt.grid(True)
     plt.show()
 
 # Erstellen Sie eine Korrelationsmatrix
-correlation_matrix = data_encoded.corr()
+correlation_matrix = data.corr()
 
 plt.figure(figsize=(20, 20))
 sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", linewidths=.5)

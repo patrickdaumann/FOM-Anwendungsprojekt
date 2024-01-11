@@ -9,22 +9,26 @@ import seaborn as sns
 
 
 # Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
-path = "C:/Users/Dennis/Documents/Aemf1_cleaned_5000.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv"
 
-data = pd.read_csv(path, sep=';', decimal=',')
+data = pd.read_csv(path, sep=';', decimal='.')
 
-data["Original_Guest Satisfaction"] = data["Guest Satisfaction"]
+data["Original_Guest Satisfaction"] = data["guest_satisfaction_overall"]
+
+
+data = data.drop("room_type", axis=1)
+data = data.drop("city", axis=1)
+data = data.drop("daytype", axis=1)
 
 # Definieren Sie die Zielklasse: Hier teilen wir die "Price"-Spalte in teuer (1) und nicht teuer (0)
 bestimmter_Schwellenwert =95  # Ihr Schwellenwert hier
-data['Guest Satisfaction'] = data['Guest Satisfaction'].apply(lambda x: 1 if x >= bestimmter_Schwellenwert else 0)
+data['guest_satisfaction_overall'] = data['guest_satisfaction_overall'].apply(lambda x: 1 if x >= bestimmter_Schwellenwert else 0)
 
-# Verwenden Sie One-Hot-Encoding für alle relevanten kategorischen Merkmale
-data_encoded = pd.get_dummies(data, columns=["Room Type", "City", "Day"])
+
 
 # Trennen Sie die Daten in unabhängige Variablen (X) und die Zielvariable (y)
-X = data_encoded.drop("Guest Satisfaction", axis=1)
-y = data_encoded["Guest Satisfaction"]
+X = data.drop("guest_satisfaction_overall", axis=1)
+y = data["guest_satisfaction_overall"]
 
 # Aufteilen der Daten in Trainings- und Testsets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -62,8 +66,8 @@ print(class_report)
 
 
 
-# Erstellen Sie eine neue Spalte "Teuer" oder "Nicht Teuer" basierend auf den Vorhersagen
-data["Teuer"] = ["Teuer" if prediction == 1 else "Nicht Teuer" for prediction in all_predictions]
+# # Erstellen Sie eine neue Spalte "Teuer" oder "Nicht Teuer" basierend auf den Vorhersagen
+# data["Teuer"] = ["Teuer" if prediction == 1 else "Nicht Teuer" for prediction in all_predictions]
 
-# Speichern Sie die Datenframe mit den Vorhersagen in eine CSV-Datei
-data.to_csv("C:/Users/Dennis/Documents/Predicted_Apartments.csv", index=False, sep=';', decimal=',')
+# # Speichern Sie die Datenframe mit den Vorhersagen in eine CSV-Datei
+# data.to_csv("C:/Users/Dennis/Documents/Predicted_Apartments.csv", index=False, sep=';', decimal=',')

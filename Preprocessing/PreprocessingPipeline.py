@@ -24,7 +24,7 @@ from scipy.stats import kstest
 ############################## Configuration
 pipelineVersionNumber = 1.0
 
-basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/' #trailing Slash!
+basePath = '/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/' #trailing Slash!
 exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
 # Verzeichnis mit einzelnen CSV Dateien

@@ -45,3 +45,4 @@ columnstocheck = [
 for column in columnstocheck:
     makeHistogram(df, column, 30, 'svg')
     checkNorm(df, column)
+

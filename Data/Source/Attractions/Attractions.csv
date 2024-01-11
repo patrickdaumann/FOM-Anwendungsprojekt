@@ -1,0 +1,95 @@
+City;Attraction;lat;lng;ratings
+Amsterdam;Rijksmuseum;52.359;4.885;88947
+Amsterdam;Anne Frank House;52.37523;4.88399;63763
+Amsterdam;Van Gogh Museum;52.35814;4.88123;82590
+Amsterdam;Vondelpark;52.35804;4.86862;50345
+Amsterdam;Dam Square;52.37314;4.89241;22085
+Amsterdam;Heineken Experience;52.35801;4.89181;9673
+Amsterdam;Artis Zoo;52.36613;4.91656;30848
+Amsterdam;Hermitage Amsterdam;52.36546;4.90237;6980
+Amsterdam;Rembrandt House Museum;52.36951;4.90111;11596
+Athens;Acropolis;37.97178;23.7257;118970
+Athens;Parthenon;37.97161;23.7267;71135
+Athens;Acropolis Museum;37.9685;23.7285;61404
+Athens;Ancient Agora of Athenss;37.97494;23.72213;31023
+Athens;Temple of Olympian Zeus;37.96955;23.73306;25571
+Athens;National Archaeological Museum;37.98908;23.73278;27683
+Athens;Syntagma Square;37.97566;23.73536;349
+Athens;Mount Lycabettus;37.98204;23.74293;3262
+Athens;PanAthensaic Stadium;37.96844;23.74118;32911
+Barcelona;Sagrada Familia;41.40379;2.17438;236947
+Barcelona;Park Gueull;41.41471;2.15271;187823
+Barcelona;Casa Mila;41.39538;2.16191;89316
+Barcelona;La Rambla;41.38578;2.1698;3966
+Barcelona;Casa Batllo;41.39184;2.16496;133649
+Barcelona;Barcelona Cathedral;41.38407;2.17618;64212
+Barcelona;Camp Nou;41.38107;2.12278;155307
+Barcelona;Picasso Museum;41.38546;2.18096;28917
+Barcelona;Magic Fountain of Montjuic;41.3713;2.15171;86209
+Berlin;Brandenburg Gate;52.51637;13.37762;185045
+Berlin;Reichstag Building;52.51869;13.37621;8430
+Berlin;Berlin Wall Memorial;52.53514;13.39013;40212
+Berlin;Museum Island;52.51691;13.4014;2881
+Berlin;Checkpoint Charlie;52.50761;13.39049;80784
+Berlin;Charlottenburg Palace;52.52102;13.29555;25039
+Berlin;Alexanderplatz;52.52211;13.41326;207464
+Berlin;Pergamon Museum;52.52138;13.39695;29267
+Berlin;Berlin Cathedral;52.51924;13.40104;35031
+Berlin;East Side Gallery;52.50535;13.43954;52244
+Budapest;Buda Castle;47.50194;19.03324;105117
+Budapest;Parliament Building;47.50728;19.04565;19723
+Budapest;Chain Bridge;47.49917;19.04368;53335
+Budapest;Fisherman's Bastion;47.50236;19.03482;86477
+Budapest;Heroes' Square;47.51508;19.07779;72764
+Budapest;St. Stephen's Basilica;47.50103;19.05396;55101
+Budapest;Margaret Island;47.5283;19.04703;8295
+Budapest;Gellert Hill;47.48666;19.0412;1792
+Budapest;Hungarian National Museum;47.49145;19.06273;11023
+Lisbon;Belem Tower;38.69175;-9.21599;87626
+Lisbon;Jeronimos Monastery;38.698;-9.20673;46357
+Lisbon;Praca do Comercio;38.70782;-9.13642;103962
+Lisbon;Castelo de S. Jorge;38.71399;-9.13348;84224
+Lisbon;Santa Justa Lift;38.71231;-9.13942;46379
+Lisbon;Monument to the Discoveries;38.69384;-9.20554;53870
+Lisbon;Lisbon Oceanarium;38.76364;-9.09376;82971
+Lisbon;Gulbenkian Museum;38.73795;-9.15355;14625
+Lisbon;LX Factory;38.70366;-9.17886;49852
+London;Buckingham Palace;51.50149;-0.14193;161703
+London;Tower of London;51.50825;-0.07606;99980
+London;British Museum;51.51955;-0.12694;146781
+London;Big Ben;51.50086;-0.12469;57879
+London;London Eye;51.5033;-0.11953;168798
+London;Tower Bridge;51.50558;-0.07543;148453
+London;Westminster Abbey;51.49941;-0.1273;39263
+London;Trafalgar Square;51.50808;-0.12805;120002
+London;Hyde Park;51.50749;-0.16396;125795
+London;Natural History Museum;51.49684;-0.17639;24309
+Paris;Eiffel Tower;48.85853;2.29444;387140
+Paris;Louvre Museum;48.86072;2.33771;306234
+Paris;Notre Dame Cathedral;48.85312;2.3499;49259
+Paris;Capelle-Sainte;48.85585;2.34501;38673
+Paris;Arc de Triomphe;48.8739;2.2951;236043
+Paris;Montmartre;48.88702;2.33888;5535
+Paris;Palace of Versailles;48.80502;2.12044;140382
+Paris;Museum d'Orsay;48.86011;2.32663;87255
+Paris;Luxembourg Gardens;48.84673;2.33641;105685
+Rome;Colosseum;41.89052;12.49233;383145
+Rome;Romean Forum;41.89279;12.48536;123870
+Rome;Pantheon;41.89877;12.47678;222177
+Rome;Vatican Museums;41.90662;12.45367;164794
+Rome;St. Peter's Basilica;41.90225;12.45397;139928
+Rome;Trevi Fountain;41.90104;12.48328;401102
+Rome;Spanish Steps;41.90615;12.48278;70809
+Rome;Sistine Chapel;41.90315;12.45452;74243
+Rome;Capitoline Museums;41.89299;12.48251;15008
+Rome;Piazza Navona;41.89928;12.47309;181870
+Vienna;Schoenbrunn Palace;48.18592;16.31279;142413
+Vienna;Hofburg Palace;48.20781;16.36597;45979
+Vienna;Belvedere Palace;48.19157;16.38093;64369
+Vienna;St. Stephen's Cathedral;48.20849;16.37349;101447
+Vienna;Prater;48.2157;16.40014;112235
+Vienna;Kunsthistorisches Museum;48.2039;16.36181;24798
+Vienna;Albertina;48.20475;16.36822;26457
+Vienna;Vienna State Opera;48.20352;16.36906;48551
+Vienna;Rathaus;48.20408;16.36212;24798
+Vienna;Schloss Belvedere;48.19196;16.38072;64369

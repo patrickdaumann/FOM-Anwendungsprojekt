@@ -10,12 +10,12 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-path = "C:/Users/Dennis/Documents/Aemf1_cleaned_5000.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Val.csv"
 
-data = pd.read_csv(path, sep=';', decimal=',')
+data = pd.read_csv(path, sep=';', decimal='.')
 
 # Wählen Sie die relevanten Merkmale für das Clustering aus
-selected_features = data[["Price", "Person Capacity", "Cleanliness Rating", "Guest Satisfaction", "City Center (km)", "Metro Distance (km)", "Normalised Attraction Index", "Normalised Restraunt Index", "lng", "lat"]]
+selected_features = data[["realSum_Normalized", "cleanliness_rating","room_type_encoded", "guest_satisfaction_overall","bedrooms","dist", "metro_dist", "attr_index_norm", "rest_index_norm", "lng", "lat"]]
 
 # Überprüfen Sie, ob die ausgewählten Merkmale korrekt sind
 print(selected_features.head())
@@ -30,7 +30,7 @@ print(scaled_features[:5])
 
 
 
-# Liste von Werten für K (Anzahl der Cluster)#
+#Liste von Werten für K (Anzahl der Cluster)
 
 
 k_values = range(2, 11)
@@ -57,7 +57,7 @@ plt.show()
 
 
 # Wählen Sie die optimale Anzahl von Clustern basierend auf der Elbow-Methode (z.B., K=4)
-optimal_k = 7
+optimal_k = 6
 kmeans = KMeans(n_clusters=optimal_k, random_state=42)
 cluster_labels = kmeans.fit_predict(scaled_features)
 
@@ -70,73 +70,69 @@ print(data.head())
 
 
 
-plt.scatter(data['Price'], data['Person Capacity'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Person Capacity')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
 
-plt.scatter(data['Price'], data['Cleanliness Rating'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Cleanliness Rating')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
 
-plt.scatter(data['Price'], data['Guest Satisfaction'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Guest Satisfaction')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['bedrooms'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('bedrooms')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['City Center (km)'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('City Center (km)')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['guest_satisfaction_overall'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('guest_satisfaction_overall')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['Metro Distance (km)'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Metro Distance (km)')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['dist'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('dist')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['Normalised Attraction Index'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Normalised Attraction Index')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['metro_dist'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('metro_dist')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['Normalised Restraunt Index'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('Normalised Restraunt Index')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['attr_index_norm'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('attr_index_norm')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['lng'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('lng')
-plt.title('2D Scatterplot mit Cluster-Färbung')
-plt.show()
+# plt.scatter(data['realSum_Normalized'], data['rest_index_norm'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('rest_index_norm')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
 
-plt.scatter(data['Price'], data['lat'], c=data['Cluster'], cmap='viridis')
-plt.xlabel('Price')
-plt.ylabel('lat')
+# plt.scatter(data['realSum_Normalized'], data['lng'], c=data['Cluster'], cmap='viridis')
+# plt.xlabel('realSum_Normalized')
+# plt.ylabel('lng')
+# plt.title('2D Scatterplot mit Cluster-Färbung')
+# plt.show()
+
+plt.scatter(data['realSum_Normalized'], data['attr_index_norm'], c=data['Cluster'], cmap='viridis')
+plt.xlabel('realSum_Normalized')
+plt.ylabel('attr_index_norm')
 plt.title('2D Scatterplot mit Cluster-Färbung')
 plt.show()
 
 
 fig = plt.figure(figsize=(10, 100))
 ax = fig.add_subplot(111, projection='3d')
-ax.scatter(data['Price'], data['City Center (km)'], data['Cleanliness Rating'], c=data['Cluster'], cmap='viridis')
-ax.set_xlabel('Price')
-ax.set_ylabel('City Center (km)')
-ax.set_zlabel('Cleanliness Rating')
+ax.scatter(data['realSum_Normalized'], data['attr_index_norm'], data['dist'], c=data['Cluster'], cmap='viridis')
+ax.set_xlabel('realSum_Normalized')
+ax.set_ylabel('attr_index_norm')
+ax.set_zlabel('dist')
 ax.zaxis.labelpad = -2
 
 
-# ax.set_xlim(0,1000)
-# ax.set_ylim(5,20)
-# ax.set_zlim(2,8)
+# # ax.set_xlim(0,1000)
+# # ax.set_ylim(5,20)
+# # ax.set_zlim(2,8)
 
 
 
@@ -147,9 +143,9 @@ plt.show()
 
 cluster_centers = kmeans.cluster_centers_  # Annahme: Sie haben bereits Ihren K-Means-Algorithmus durchgeführt
 plt.scatter(cluster_centers[:, 0], cluster_centers[:, 1], marker='o', s=100, c='red', label='Cluster Centers')
-plt.scatter(data['Price'], data['City Center (km)'], c=data['Cluster'], cmap='viridis', alpha=0.5)
-plt.xlabel('Price')
-plt.ylabel('City Center (km)')
+plt.scatter(data['realSum_Normalized'], data['attr_index_norm'], c=data['Cluster'], cmap='viridis', alpha=0.5)
+plt.xlabel('realSum_Normalized')
+plt.ylabel('attr_index_norm')
 plt.title('Cluster-Zentren und 2D Scatterplot')
 plt.legend()
 plt.show()
