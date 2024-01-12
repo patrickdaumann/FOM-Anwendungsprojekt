@@ -11,13 +11,6 @@ import contextily as ctx
 
 df = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/AttractionScores.csv", sep=';',decimal='.', engine='python')
 
-df['z_score'] = stats.zscore(df['AttractionScore'])
-
-# Define outliers to be any data points located further than 3 standard deviations from the mean
-outliers = df[np.abs(df['z_score']) > 3]
-
-# Drop outliers
-df_cleaned = df[np.abs(df['z_score']) <= 3].drop(columns=['z_score'])
 
 
 
@@ -47,8 +40,8 @@ def plot_attraction_score_on_map(df, city_name):
     plt.show()
 
 # Get the list of unique cities
-unique_cities = df_cleaned['city'].unique()
+unique_cities = df['city'].unique()
 
 # Plot for each city
 for city in tqdm(unique_cities):
-    plot_attraction_score_on_map(df_cleaned, city)
+    plot_attraction_score_on_map(df, city)
