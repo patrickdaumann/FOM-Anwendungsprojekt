@@ -9,7 +9,7 @@ Created on Sun Dec 31 15:08:34 2023
 Ziele:
     - Aufteilen in Training und Testset
 
-Versionsog:
+Versionslog:
     - V1.0 - 05.01.2023 - Ursprüngliche Version der PP Pipeline
 """
 
@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 from scipy.stats import kstest
+from geopy.distance import geodesic
 
 ############################## Configuration
 pipelineVersionNumber = 1.0
@@ -29,6 +30,9 @@ exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
 # Verzeichnis mit einzelnen CSV Dateien
 sourcefilepath = f"{basePath}Data/Source/Airbnb_Prices_in_European_Cities"
+
+# Pfad für Attractions CSV
+attracttionsCSVPath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Source/Attractions/Attractions.csv'
 
 #Erzeugen eines leeren Dataframes
 df = pd.DataFrame()
@@ -63,7 +67,6 @@ df = df.drop(columns=['Unnamed: 0'])
 # Index Reset -> Index soll kontinuierlich und lückenlos sein
 df.reset_index(drop=True, inplace=True)
 
-print(df.head())
 
 ############################ Auf fehlende Werte prüfen
 missing = df.isna().sum()
@@ -99,43 +102,82 @@ for categorical_column in categorical_columns:
 boolean_columns = ['room_shared','room_private','host_is_superhost']
 
 for column in boolean_columns:
-    print(df[column])
-
-for column in boolean_columns:
     df[column] = df[column].astype(int)
 
-############################ Bereinigung der Werte
 
+############################ Attraction Score hinzufuegen
+
+attractions_df = pd.read_csv(attracttionsCSVPath, sep=';')
+
+#Staedtenamen in Lowercase wandeln
+attractions_df['City'] = attractions_df['City'].str.lower()
+
+previous_city = None
+
+for index, row in df.iterrows():    
+    
+    #SubDF mit der passenden Stadt erzeugen
+    city = row['city']
+    
+    if previous_city != city:
+        subdf = attractions_df.query('City == @city')
+    
+    #Geoloc Daten des Listings in Variable Speichern
+    listingGeoLoc = (row['lat'], row['lng'])
+    
+    #Platzhalter Variablen    
+    summe = 0
+    maxrating = 0
+    
+    #Leeres Array für Tupel erstellen
+    distances = []
+    
+    #Iterieren des subdf und berechnungen durchführen (Iteration durch alle Attractions für die passende Stadt)
+    for indexy, rowy in subdf.iterrows():
+        
+        #Distanz berechnen
+        dist = round(geodesic(listingGeoLoc, (rowy['lat'], rowy['lng'])).kilometers, 2)
+        ratings = rowy['ratings']
+        attractionname = rowy['Attraction']
+        
+        # Distanz und Ratinganzahl in Array abspeichern
+        distances.append((dist, ratings, attractionname))
+        
+    #maxrating erfassen
+    for dist, ratings, attractionname in distances:
+        if maxrating < ratings:
+            maxrating = ratings
+    
+    
+    #Formel für Score: (Bewertung/maxBewertung) * (100/Distanz zur Attraktion) und das summiert für jede Attraktion
+    AttractionScore = 0
+    for dist, ratings, attractionname in distances:
+        AttractionScore += (ratings/maxrating) * (100/dist)
+    
+    #Gerundeten Wert in Konsole ausgeben
+    print(round(AttractionScore, 2))
+    
+    #Wert in den DF am passenden Index einfuegen
+    df.at[index, 'AttractionScore'] = AttractionScore
+    
+    previous_city = row['city']
+
+
+############################ Bereinigung der Werte
 column = 'realSum'
 bins = 100
 
-Bereinigungsmethode = 'Z-SCORE' #'IQR', 'Z-SCORE'
 
-if Bereinigungsmethode == 'IQR':
-    # Bereinigen der Spalte realSum mit der IQR-Methode:
-    Q1 = df['realSum'].quantile(0.25)
-    Q3 = df['realSum'].quantile(0.75)
-    IQR = Q3 - Q1
-    mad = stats.median_absolute_deviation(df['realSum'])
-    
-    # Schwellenwert für Ausreißer (zum Beispiel, 1.5*IQR + 3*MAD)
-    threshold = 1.5 * IQR + 3 * mad
-    
-    # Filtern der Ausreißer
-    df = df[(df['realSum'] < Q3 + threshold) & (df['realSum'] > Q1 - threshold)]
-    
-    
-    # Histogramm der bereinigten Daten ausgeben
-    plt.hist(x=df[column], bins='auto')
-    plt.xlabel(column)
-    plt.ylabel('Häufigkeit')
-    plt.show()
+# Bereinigung von Realsum 
+z_scores = stats.zscore(df['realSum'])
+threshold = 3
+df = df[(z_scores < threshold)]
 
-elif True:
-    z_scores = stats.zscore(df['realSum'])
-    threshold = 3
-    df = df[(z_scores < threshold)]
 
+# Bereinigung von AttractionScore 
+z_scores = stats.zscore(df['AttractionScore'])
+threshold = 3
+df = df[(z_scores < threshold)]
 
 ####################### Normalisierung der Daten
 
@@ -156,6 +198,13 @@ df.boxplot(column='realSum_Normalized', showfliers=True)
 plt.title('Boxplot für realSum_Normalized')
 plt.show()
 
+
+
+# Attraction scores Normalisieren
+AttracttionScoreMin = df['AttractionScore'].min()
+AttracttionScoreMax = df['AttractionScore'].max()
+
+df['AttractionScore_Norm'] = 100 * (df['AttractionScore'] - AttracttionScoreMin) / (AttracttionScoreMax - AttracttionScoreMin)
 
 ############################## Aufteilen ist Train, Test und Validation Sets
 
