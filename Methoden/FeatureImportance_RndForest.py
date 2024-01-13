@@ -8,25 +8,25 @@ Created on Sat Jan  6 10:53:28 2024
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Load the CSV file into a DataFrame
-file_path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv"
-data = pd.read_csv(file_path, sep=';', decimal='.')
+# Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Train.csv"
 
-data = data.drop("room_type", axis=1)
+path2 = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Test.csv"
 
+data = pd.read_csv(path, sep=';', decimal='.')
+data_test = pd.read_csv(path2, sep=';', decimal='.')
 
 
 # Wählen Sie Ihre Features und die Zielvariable aus
 #X = data.drop("realSum", axis=1)  # Beispielmerkmale
 
-X = data[['cleanliness_rating', 'host_is_superhost', 'city','rest_index','attr_index' ]]
-y = data['guest_satisfaction_overall']  # Zielvariable
+# Definieren Sie erneut abhängige und unabhängige Variablen
+X_train = data[['attr_index_norm', "dist", "metro_dist", "realSum_Normalized", "cleanliness_rating"]]
+y_train = data['guest_satisfaction_overall']
 
-X = pd.get_dummies(X, columns=['city'])
 
-# Aufteilen in Trainings- und Testdaten
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+X_test = data_test[[ 'attr_index_norm', "dist", "metro_dist", "realSum_Normalized", "cleanliness_rating"]]
+y_test = data_test['guest_satisfaction_overall']
 
 
 from sklearn.ensemble import RandomForestRegressor
@@ -56,6 +56,6 @@ feature_importances = rf_regressor.feature_importances_
 
 # Visualisierung
 plt.barh(range(len(feature_importances)), feature_importances)
-plt.yticks(range(len(X.columns)), X.columns)
+plt.yticks(range(len(X_train.columns)), X_train.columns)
 plt.xlabel('Feature Importance')
 plt.show()

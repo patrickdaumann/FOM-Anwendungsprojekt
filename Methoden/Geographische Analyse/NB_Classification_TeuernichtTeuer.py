@@ -30,7 +30,7 @@ from shapely.geometry import Point
 import seaborn as sns
 
 # Auswahl der Features und des Targets
-X = data[['room_type_encoded', 'city_encoded', 'daytype_encoded', 'realSum_Normalized', 'AttractionScore_Norm']]
+X = data[['room_type_encoded', 'city_encoded', 'daytype_encoded', 'AttractionScore_Norm']]
 y = data['is_expensive']
 
 # Aufteilen der Daten in Trainings- und Testsets
