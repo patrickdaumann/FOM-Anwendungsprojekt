@@ -24,7 +24,7 @@ from scipy.stats import kstest
 ############################## Configuration
 pipelineVersionNumber = 1.0
 
-basePath = '/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/' #trailing Slash!
+basePath = '/Users/patrick/GitHub/FOM-Anwendungsprojekt/' #trailing Slash!
 exportBasePath = f"{basePath}Data/Output/" #trailing Slash!
 
 # Verzeichnis mit einzelnen CSV Dateien
@@ -63,6 +63,7 @@ df = df.drop(columns=['Unnamed: 0'])
 # Index Reset -> Index soll kontinuierlich und lückenlos sein
 df.reset_index(drop=True, inplace=True)
 
+print(df.head())
 
 ############################ Auf fehlende Werte prüfen
 missing = df.isna().sum()
@@ -96,6 +97,9 @@ for categorical_column in categorical_columns:
 ############################ Boolische Werte in 0 & 1 konvertieren
 
 boolean_columns = ['room_shared','room_private','host_is_superhost']
+
+for column in boolean_columns:
+    print(df[column])
 
 for column in boolean_columns:
     df[column] = df[column].astype(int)
@@ -250,7 +254,7 @@ for column in metric_data.columns:
     plt.xlabel('Werte')
     plt.ylabel('Häufigkeit')
     plt.title(f'Histogramm für {column}')
-    plt.savefig(f"{exportBasePath}/Figures/{column}.pdf", format='pdf')
+    plt.savefig(f"{exportBasePath}Figures/{column}.pdf", format='pdf')
     plt.show()
     
     result = kstest(df[column], 'norm')
@@ -288,7 +292,6 @@ exportFilePathStats = f"{exportBasePath}{exportFilenameStats}"
 
 # DataFrame in CSV exportieren
 stats_df.to_csv(exportFilePathStats, index=False, sep=';')
-
 
 
 
