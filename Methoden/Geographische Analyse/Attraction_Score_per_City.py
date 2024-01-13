@@ -9,7 +9,7 @@ import numpy as np
 
 import contextily as ctx
 
-df = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/AttractionScores.csv", sep=';',decimal='.', engine='python')
+df = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Full.csv", sep=';',decimal='.', engine='python')
 
 
 

@@ -6,9 +6,14 @@ Created on Fri Jan 12 12:45:16 2024
 """
 import pandas as pd
 # Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
-path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/AttractionScoresRealSum_cleaned.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
+
+path2 = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
 
 data = pd.read_csv(path, sep=';', decimal='.')
+data_test = pd.read_csv(path2, sep=';', decimal='.')
+
+
 
 # Bestimmung des Schwellenwerts f�r die Klassifizierung
 # Wir verwenden das obere Quartil (75%) als Schwellenwert f�r 'teuer'
@@ -18,6 +23,7 @@ print('Schwellenwert f�r teuer:', threshold)
 # Hinzuf�gen einer neuen Spalte f�r die Klassifizierung
 # Wenn der Preis �ber dem Schwellenwert liegt, ist das Appartement 'teuer' (1), sonst 'nicht teuer' (0)
 data['is_expensive'] = (data['realSum_Normalized'] > threshold).astype(int)
+data_test['is_expensive'] = (data['realSum_Normalized'] > threshold).astype(int)
 
 # Anzeigen der aktualisierten Tabelle mit der neuen Spalte
 print(data[['realSum_Normalized', 'is_expensive']].head())
@@ -29,12 +35,19 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from shapely.geometry import Point
 import seaborn as sns
 
-# Auswahl der Features und des Targets
-X = data[['room_type_encoded', 'city_encoded', 'daytype_encoded', 'AttractionScore_Norm']]
-y = data['is_expensive']
 
-# Aufteilen der Daten in Trainings- und Testsets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Wählen Sie Ihre Features und die Zielvariable aus
+#X = data.drop("realSum", axis=1)  # Beispielmerkmale
+
+# Definieren Sie erneut abhängige und unabhängige Variablen
+X_train = data[['AttractionScore_Norm', "dist", "metro_dist", "guest_satisfaction_overall", "cleanliness_rating", "rest_index_norm", "host_is_superhost", "city_encoded"]]
+y_train = data["is_expensive"]
+
+
+X_test = data_test[[ "AttractionScore_Norm", "dist", "metro_dist", "guest_satisfaction_overall", "cleanliness_rating", "rest_index_norm", "host_is_superhost", "city_encoded"]]
+y_test = data_test["is_expensive"]
+
 
 # Erstellen und Trainieren des NaiveBayes Klassifikators
 nb_classifier = GaussianNB()

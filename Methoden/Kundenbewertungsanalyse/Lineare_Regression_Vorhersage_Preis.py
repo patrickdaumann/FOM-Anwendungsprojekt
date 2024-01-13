@@ -5,11 +5,23 @@ Created on Sun Jan  7 11:19:44 2024
 @author: Dennis
 """
 
-# Durchführung einer linearen Regression
 import pandas as pd
+# Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
+path = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
+
+path2 = "/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
+
+data = pd.read_csv(path, sep=';', decimal='.')
+data_test = pd.read_csv(path2, sep=';', decimal='.')
+
+# Durchführung einer linearen Regression
+# Definieren Sie erneut abhängige und unabhängige Variablen
+X_train = data[['city_encoded', 'bedrooms', 'AttractionScore_Norm', 'room_type_encoded', 'rest_index_norm' ,'dist','metro_dist']]
+y_train = data["realSum_Normalized"]
 
 
-data = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv", sep=';',decimal='.', engine='python')
+X_test = data_test[['city_encoded', 'bedrooms', 'AttractionScore_Norm', 'room_type_encoded', 'rest_index_norm' ,'dist','metro_dist']]
+y_test = data_test["realSum_Normalized"]
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -18,18 +30,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Feature Engineering und Auswahl relevanter Merkmale
-features = data[['person_capacity', 'bedrooms', 'cleanliness_rating', 'dist', 'metro_dist', 'attr_index', 'rest_index', 'realSum']]
 
-# Normalisierung der Merkmale
-scaler = StandardScaler()
-features_scaled = scaler.fit_transform(features)
 
-# Definition der Zielvariable
-target = data['guest_satisfaction_overall']
 
-# Erneutes Trainieren des Modells
-X_train, X_test, y_train, y_test = train_test_split(features_scaled, target, test_size=0.2, random_state=42)
 model = LinearRegression()
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
@@ -37,6 +40,8 @@ predictions = model.predict(X_test)
 # Bewertung des erweiterten Modells
 mse = mean_squared_error(y_test, predictions)
 r2 = r2_score(y_test, predictions)
+print(f"Mean Squared Error: {mse}")
+print(f"R^2 Score: {r2}")
 
 # Visualisierung der tatsächlichen vs. vorhergesagten Preise
 plt.figure(figsize=(10,6))
