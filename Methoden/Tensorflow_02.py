@@ -19,12 +19,14 @@ path = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Pric
 
 data = pd.read_csv(path, sep=';', decimal='.')
 
-x = data[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']]
-y = data[['realSum']]
+x = data[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values
+y = data[['realSum']].values
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
-    layers.Dense(1, input_shape=(3,))  # Ein einzelnes Neuron, da wir nur eine Dimension haben
+    layers.Dense(64, activation='relu', input_shape=(3,)),  # Eingabe ist 3-dimensional
+    layers.Dense(32, activation='relu'),
+    layers.Dense(1)  # Die Ausgabe ist 1-dimensional
 ])
  
 # Kompilieren des Modells
@@ -41,3 +43,11 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 predictions = model.predict(x)
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
+
+
+testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
+testdata = pd.read_csv(testpath, sep=';', decimal='.')
+x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values
+y_t = testdata[['realSum']].values
+predictions = model.predict(x_t)
+model.save("/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n_100epochs_001.h5")
