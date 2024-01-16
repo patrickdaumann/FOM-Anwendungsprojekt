@@ -25,26 +25,25 @@ path = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Pric
 
 data = pd.read_csv(path, sep=';', decimal='.')
 
-selected_columns = data[['Spalte1', 'Spalte2']]
+x = data[['cleanliness_rating', 'guests_satisfaction_overall', 'attractionscore_norm']]
+y = data[['realSum']]
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
-    layers.Dense(1, input_shape=(1,))  # Ein einzelnes Neuron, da wir nur eine Dimension haben
+    layers.Dense(1, input_shape=(3,))  # Ein einzelnes Neuron, da wir nur eine Dimension haben
 ])
  
 # Kompilieren des Modells
 model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsaufgaben
  
 # Training des Modells
-model.fit(X, y, epochs=10000)  # Wir verwenden die gleichen Daten für Training und Test
+model.fit(x, y, epochs=100)  # Wir verwenden die gleichen Daten für Training und Test
  
 # Evaluieren des Modells (optional)
-loss = model.evaluate(X, y)
+loss = model.evaluate(x, y)
 print(f'Loss auf den Trainingsdaten: {loss:.4f}')
  
 # Vorhersagen mit dem trainierten Modell
-predictions = model.predict(X)
+predictions = model.predict(x)
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
-
-print(model.predict([2]))
