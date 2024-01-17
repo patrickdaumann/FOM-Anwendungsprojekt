@@ -33,7 +33,7 @@ model = keras.Sequential([
 model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsaufgaben
  
 # Training des Modells
-model.fit(x, y, epochs=100)  # Wir verwenden die gleichen Daten für Training und Test
+model.fit(x, y, epochs=1000)  # Wir verwenden die gleichen Daten für Training und Test
  
 # Evaluieren des Modells (optional)
 loss = model.evaluate(x, y)
@@ -42,6 +42,7 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
 print(predictions)
+model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n-1000epochs_003.h5")
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 
@@ -51,4 +52,4 @@ print(predictions)
 #x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values
 #y_t = testdata[['realSum']].values
 #predictions = model.predict(x_t)
-#model.save("/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n_100epochs_001.h5")
+#model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n-100epochs_002.h5")
