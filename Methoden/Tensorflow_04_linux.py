@@ -23,7 +23,7 @@ y = data[['realSum_Normalized']].values
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
-    layers.Dense(64, activation='relu', input_shape=(3,)),  # Eingabe ist 3-dimensional
+    layers.Dense(64, activation='relu', input_shape=(4,)),  # Eingabe ist 4-dimensional
     layers.Dense(32, activation='relu'),
     layers.Dense(1)  # Die Ausgabe ist 1-dimensional
 ])
