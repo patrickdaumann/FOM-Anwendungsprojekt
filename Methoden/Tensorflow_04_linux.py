@@ -18,12 +18,12 @@ path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_
 
 data = pd.read_csv(path, sep=';', decimal='.')
 
-x = data[['attr_index_norm', 'rest_index_norm', 'person_capacity', 'AttractionScore_Norm']].values
+x = data[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded',]].values
 y = data[['realSum_Normalized']].values
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
-    layers.Dense(64, activation='relu', input_shape=(4,)),  # Eingabe ist 4-dimensional
+    layers.Dense(64, activation='relu', input_shape=(7,)),  # Eingabe ist 7-Dimensional
     layers.Dense(32, activation='relu'),
     layers.Dense(1)  # Die Ausgabe ist 1-dimensional
 ])
@@ -41,7 +41,7 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
 print(predictions)
-model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-a_i_n-r_i_n-p_c-AS_N-100epochs_001.h5")
+model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-10kepochs_001.h5")
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 

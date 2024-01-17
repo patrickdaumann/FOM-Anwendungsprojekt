@@ -10,6 +10,8 @@ import pandas as pd
 
 df = pd.read_csv('/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
 x = df[['attr_index_norm', 'rest_index_norm', 'person_capacity', 'AttractionScore_Norm']].values
+test = df[['realSum_Normalized']].values
+maxrealSum = df[['realSum']].values.max()
 #x = x.astype('float32')  # Konvertieren in float32
 
 # Pfad zur H5-Datei
@@ -27,4 +29,5 @@ predictions = model.predict(x)
 # Ergebnisse anzeigen oder weiterverarbeiten
 print(predictions)
 
-#test
+for i in range(0,len(test)):
+    print(f"{predictions[i]};{test[i]};Delta:{abs(predictions[i]-test[i])*maxrealSum}$")
