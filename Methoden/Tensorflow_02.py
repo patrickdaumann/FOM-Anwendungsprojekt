@@ -41,13 +41,14 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
  
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
+print(predictions)
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 
 
-testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
-testdata = pd.read_csv(testpath, sep=';', decimal='.')
-x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values
-y_t = testdata[['realSum']].values
-predictions = model.predict(x_t)
-model.save("/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n_100epochs_001.h5")
+#testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
+#testdata = pd.read_csv(testpath, sep=';', decimal='.')
+#x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values
+#y_t = testdata[['realSum']].values
+#predictions = model.predict(x_t)
+#model.save("/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Models/c_rt-g_s_o-as_n_100epochs_001.h5")
