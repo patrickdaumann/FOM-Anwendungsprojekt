@@ -32,7 +32,7 @@ model = keras.Sequential([
 model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsaufgaben
  
 # Training des Modells
-model.fit(x, y, epochs=1000)  # Wir verwenden die gleichen Daten für Training und Test
+model.fit(x, y, epochs=10000)  # Wir verwenden die gleichen Daten für Training und Test
  
 # Evaluieren des Modells (optional)
 loss = model.evaluate(x, y)
