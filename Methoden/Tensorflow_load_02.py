@@ -9,13 +9,13 @@ from tensorflow import keras
 import pandas as pd
 
 df = pd.read_csv('/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
-x = df[['attr_index_norm', 'rest_index_norm', 'person_capacity', 'AttractionScore_Norm']].values
+x = df[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded']].values
 test = df[['realSum_Normalized']].values
 maxrealSum = df[['realSum']].values.max()
 #x = x.astype('float32')  # Konvertieren in float32
 
 # Pfad zur H5-Datei
-model_path = '/mnt/c/Users/MK/FOM-Anwendungsprojekt/Models/train-csv-a_i_n-r_i_n-p_c-AS_N-1000epochs_001.h5'
+model_path = '/mnt/c/Users/MK/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-10kepochs_001.h5'
 
 # Laden des Modells
 model = keras.models.load_model(model_path)
