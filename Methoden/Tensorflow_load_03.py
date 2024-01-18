@@ -26,13 +26,20 @@ model.summary()
 # Vorhersagen treffen
 predictions = model.predict(x)
 
-# DataFrame für Ergebnisse
-results_df = pd.DataFrame(columns=['Prediction', 'Actual', 'Delta'])
+# Listen für Ergebnisse
+predictions_list = []
+actual_list = []
+delta_list = []
 
 # Vorhersagen und Deltas sammeln
 for i in range(len(test)):
     delta = abs(predictions[i] - test[i]) * maxrealSum
-    results_df = results_df.append({'Prediction': predictions[i][0], 'Actual': test[i][0], 'Delta': delta[0]}, ignore_index=True)
+    predictions_list.append(predictions[i][0])
+    actual_list.append(test[i][0])
+    delta_list.append(delta[0])
+
+# Erstellen eines DataFrames aus den Listen
+results_df = pd.DataFrame({'Prediction': predictions_list, 'Actual': actual_list, 'Delta': delta_list})
 
 # Ergebnisse in CSV speichern
 results_df.to_csv('/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Results/predictions_01.csv', index=False)
