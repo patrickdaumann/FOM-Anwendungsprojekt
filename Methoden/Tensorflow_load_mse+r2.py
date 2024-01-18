@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 18 12:49:24 2024
+
+@author: kesper
+"""
+
+from tensorflow import keras
+import pandas as pd
+from sklearn.metrics import mean_squared_error, r2_score
+
+
+
+df = pd.read_csv('/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
+x = df[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded']].values
+test = df[['realSum_Normalized']].values
+maxrealSum = df[['realSum']].values.max()
+#x = x.astype('float32')  # Konvertieren in float32
+
+# Pfad zur H5-Datei
+model_path = '/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-10kepochs_001.h5'
+
+# Laden des Modells
+model = keras.models.load_model(model_path)
+
+# Modellübersicht anzeigen
+model.summary()
+
+# Vorhersagen treffen
+predictions = model.predict(x)
+
+# Berechnung von Mean Squared Error und R² Score
+mse = mean_squared_error(test, predictions)
+r2 = r2_score(test, predictions)
+
+# Ergebnisse anzeigen
+print(f"Mean Squared Error: {mse}")
+print(f"R^2 Score: {r2}")
