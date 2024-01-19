@@ -53,9 +53,6 @@ model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsau
  
 history = model.fit(x, y, epochs=50, validation_data=(val_x, val_y))
 
-
-
-
 plt.plot(history.history['loss'], label='Training loss')
 plt.plot(history.history['val_loss'], label='Validation loss')
 plt.title('Loss over Epochs')
