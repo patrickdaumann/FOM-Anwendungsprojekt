@@ -15,9 +15,9 @@ import matplotlib.pyplot as plt
 #y = np.array([2.0, 4.0, 6.0, 8.0, 10.0])
 
 # Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
-path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
+path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 #path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
-val_path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
+val_path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
 #val_path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
 
 
@@ -70,7 +70,7 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
 print(predictions)
-model.save("/mnt/c/Users/MK/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
+model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 
