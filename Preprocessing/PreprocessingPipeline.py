@@ -100,6 +100,7 @@ for column in df.columns:
 
 
 
+
 ############################ Auf Duplikate prüfen
 dups = df.duplicated().sum()
 if dups.any():
@@ -185,6 +186,13 @@ for index, row in df.iterrows():
     df.at[index, 'AttractionScore'] = AttractionScore
     
     previous_city = row['city']
+
+
+########################## Exportieren des DF vor der Bereingung
+
+exportFilePathDatenbeschreibung = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Datenbeschreibung/Airbnb_Prices_V1.0_VorBereinigung.csv"
+df.to_csv(exportFilePathDatenbeschreibung, index=False, sep=';')
+
 
 
 ############################ Bereinigung der Werte
