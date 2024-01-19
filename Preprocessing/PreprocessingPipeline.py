@@ -76,6 +76,30 @@ if missing.any():
 else:
     print("keine fehlenden Datensätze (NaN oder NULL)")
 
+
+############################ Aktuellen Stand (Vor Bereinigungen) als Vectorgrafiken Exportieren
+
+print(df.head())
+
+exportBasePath_vB = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Figures/"
+
+
+for column in df.columns:
+    try:
+        #plt.figure(figsize=(6, 4))
+        plt.hist(df[column], alpha=0.5, bins='auto')
+        plt.xlabel('Werte')
+        plt.ylabel('Häufigkeit')
+        plt.title(f'{column}')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig(f"{exportBasePath_vB}Vor_Bereinigung/{column}.pdf", format='pdf')
+        plt.show()
+    except:
+        pass
+
+
+
 ############################ Auf Duplikate prüfen
 dups = df.duplicated().sum()
 if dups.any():
@@ -344,7 +368,22 @@ stats_df.to_csv(exportFilePathStats, index=False, sep=';')
 
 
 
+exportBasePath_nB = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Figures/"
 
+
+for column in df.columns:
+    try:
+        #plt.figure(figsize=(6, 4))
+        plt.hist(df[column], alpha=0.5, bins='auto')
+        plt.xlabel('Werte')
+        plt.ylabel('Häufigkeit')
+        plt.title(f'{column}')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig(f"{exportBasePath_vB}Nach_Bereinigung/{column}.pdf", format='pdf')
+        plt.show()
+    except:
+        pass
 
 
 
