@@ -51,7 +51,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsau
 # Training des Modells
 #model.fit(x, y, epochs=15000)  # Wir verwenden die gleichen Daten für Training und Test
  
-history = model.fit(x, y, epochs=50, validation_data=(val_x, val_y))
+history = model.fit(x, y, epochs=15000, validation_data=(val_x, val_y))
 
 plt.plot(history.history['loss'], label='Training loss')
 plt.plot(history.history['val_loss'], label='Validation loss')
@@ -70,7 +70,7 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
 print(predictions)
-model.save("/mnt/c/Users/MK/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-50epochs_001.h5")
+model.save("/mnt/c/Users/MK/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 
