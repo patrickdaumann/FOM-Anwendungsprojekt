@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from tensorflow.keras.utils import plot_model
+import seaborn as sns
 
 
 df = pd.read_csv('/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
@@ -37,6 +38,14 @@ for i in range(len(y)):
 
 # Erstellen eines DataFrames aus den Listen
 results_df = pd.DataFrame({'Prediction': predictions_list, 'Actual': actual_list, 'Delta': delta_list})
+
+plt.figure(figsize=(10,6))
+sns.scatterplot(x=results_df['Actual'], y=results_df['Prediction'])
+plt.xlabel('Tatsächliche Preise')
+plt.ylabel('Vorhergesagte Preise (Tensorflow DL)')
+plt.title('Tatsächliche vs. Vorhergesagte Preise (Tensorflow DL)')
+plt.savefig(f"Figures/RandomForest/Preisvorhersage.svg", format='svg')
+plt.show()
 
 # Ergebnisse in CSV speichern
 results_df.to_csv('/mnt/c/Users/MK/FOM-Anwendungsprojekt/Results/predictions_02.csv', index=False)
