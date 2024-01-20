@@ -93,7 +93,7 @@ for column in df.columns:
         plt.title(f'{column}')
         plt.xticks(rotation=45)
         plt.tight_layout()
-        plt.savefig(f"{exportBasePath_vB}Vor_Bereinigung/{column}.pdf", format='pdf')
+        plt.savefig(f"{exportBasePath_vB}Vor_Bereinigung/svg/{column}.svg", format='svg')
         plt.show()
     except:
         pass
@@ -193,6 +193,36 @@ for index, row in df.iterrows():
 exportFilePathDatenbeschreibung = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Datenbeschreibung/Airbnb_Prices_V1.0_VorBereinigung.csv"
 df.to_csv(exportFilePathDatenbeschreibung, index=False, sep=';')
 
+
+
+########################## Exportieren das Stats CSV vor der Bereinigung
+############################### Informationen über alle metrischen Spalten erfassen und als CSV ausgeben
+stats_list = []
+
+metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index', 'AttractionScore']]
+
+for col in metric_data.columns:
+    col_data = metric_data[col]
+    stats_i = {
+        'Spalte': col,
+        'Median': col_data.median(),
+        'Min': col_data.min(),
+        'Max': col_data.max(),
+        'Q1': np.percentile(col_data, 25),
+        'Q3': np.percentile(col_data, 75),
+        'IQR': np.percentile(col_data, 75) - np.percentile(col_data, 25),
+        'Varianz': col_data.var(),
+        'Standardabweichung': col_data.std(),
+        'Spannweite': col_data.max() - col_data.min()
+    }
+    stats_list.append(stats_i)
+
+# Liste in Dataframe wandeln
+stats_df = pd.DataFrame(stats_list)
+
+
+# DataFrame in CSV exportieren
+stats_df.to_csv("/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Datenbeschreibung/Stats_VorBereinigung.csv", index=False, sep=';')
 
 
 ############################ Bereinigung der Werte
@@ -325,7 +355,7 @@ if True:
 # Ziel: P Value der Normalverteilung für alle metrischen Columns ermitteln, Histogramme abspeichern
 
 # Ihre Daten auswählen
-metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index']]
+metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index', 'AttractionScore']]
 
 for column in metric_data.columns:
     
@@ -350,7 +380,7 @@ stats_list = []
 
 for col in metric_data.columns:
     col_data = metric_data[col]
-    stats = {
+    stats_i = {
         'Spalte': col,
         'Median': col_data.median(),
         'Min': col_data.min(),
@@ -362,7 +392,7 @@ for col in metric_data.columns:
         'Standardabweichung': col_data.std(),
         'Spannweite': col_data.max() - col_data.min()
     }
-    stats_list.append(stats)
+    stats_list.append(stats_i)
 
 # Liste in Dataframe wandeln
 stats_df = pd.DataFrame(stats_list)
@@ -388,7 +418,7 @@ for column in df.columns:
         plt.title(f'{column}')
         plt.xticks(rotation=45)
         plt.tight_layout()
-        plt.savefig(f"{exportBasePath_vB}Nach_Bereinigung/{column}.pdf", format='pdf')
+        plt.savefig(f"{exportBasePath_vB}Nach_Bereinigung/svg/{column}.svg", format='svg')
         plt.show()
     except:
         pass
