@@ -3,7 +3,7 @@
 Created on Wed Jan 17 16:28:00 2024
 @author: kesper
 """
-
+# Import der notwendigen Module
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -37,9 +37,6 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 predictions = model.predict(x)
 print(predictions)
 model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_001.h5")
- 
-# Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
-
 
 #testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
 #testdata = pd.read_csv(testpath, sep=';', decimal='.')

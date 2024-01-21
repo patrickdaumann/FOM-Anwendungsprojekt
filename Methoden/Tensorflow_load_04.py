@@ -1,3 +1,4 @@
+# Import der notwendigen Module
 from tensorflow import keras
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +7,7 @@ from tensorflow.keras.utils import plot_model
 import seaborn as sns
 import numpy as np
 
-
+# Daten vorbereiten
 df = pd.read_csv('/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
 x = df[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded']].values
 y = df[['realSum_Normalized']].values

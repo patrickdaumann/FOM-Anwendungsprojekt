@@ -4,10 +4,11 @@ Created on Wed Jan 17 18:50:12 2024
 
 @author: kesper
 """
-
+# Import der notwendigen Module
 from tensorflow import keras
 import pandas as pd
 
+# Daten vorbereiten
 df = pd.read_csv('C:/DATA/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv', sep=';', decimal='.')
 x = df[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded']].values
 test = df[['realSum_Normalized']].values
@@ -26,7 +27,7 @@ model.summary()
 # Angenommen, `some_input_data` ist Ihre Eingabedaten
 predictions = model.predict(x)
 
-# Ergebnisse anzeigen oder weiterverarbeiten
+# Ergebnisse anzeigen
 print(predictions)
 
 for i in range(0,len(test)):

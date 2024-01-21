@@ -4,7 +4,7 @@ Spyder Editor
 
 This is a temporary script file.
 """
-
+# Import der notwendigen Module
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -38,9 +38,6 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 predictions = model.predict(x)
 print(predictions)
  
-# Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
-
-
 #testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
 #testdata = pd.read_csv(testpath, sep=';', decimal='.')
 #x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values

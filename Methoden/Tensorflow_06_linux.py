@@ -3,20 +3,17 @@
 Created on Wed Jan 17 16:28:00 2024
 @author: kesper
 """
-
+# Import der notwendigen Module
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 import pandas as pd
 import matplotlib.pyplot as plt
  
- 
 path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 #path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 val_path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
 #val_path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
-
-
 
 data = pd.read_csv(path, sep=';', decimal='.')
 
@@ -31,7 +28,6 @@ val_y = val_data[['realSum_Normalized']].values
 
 print(val_x)
 print(val_y)
-
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
@@ -68,9 +64,6 @@ predictions = model.predict(x)
 print(predictions)
 model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
  
-# Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
-
-
 #testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
 #testdata = pd.read_csv(testpath, sep=';', decimal='.')
 #x_t = testdata[['cleanliness_rating', 'guest_satisfaction_overall', 'AttractionScore_Norm']].values

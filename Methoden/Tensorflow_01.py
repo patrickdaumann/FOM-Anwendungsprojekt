@@ -4,7 +4,7 @@ Spyder Editor
 
 This is a temporary script file.
 """
-
+# Import der notwendigen Module
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -34,11 +34,9 @@ model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsau
 # Training des Modells
 model.fit(x, y, epochs=100)  # Wir verwenden die gleichen Daten für Training und Test
  
-# Evaluieren des Modells (optional)
+# Evaluieren des Modells
 loss = model.evaluate(x, y)
 print(f'Loss auf den Trainingsdaten: {loss:.4f}')
  
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
- 
-# Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.

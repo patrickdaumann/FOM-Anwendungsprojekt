@@ -3,7 +3,7 @@
 Created on Sun Jan 21 14:10:23 2024
 @author: MK
 """
-
+# Import der notwendigen Module
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -15,8 +15,6 @@ path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Tra
 #path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 val_path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
 #val_path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
-
-
 
 data = pd.read_csv(path, sep=';', decimal='.')
 
@@ -49,6 +47,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsau
  
 history = model.fit(x, y, epochs=15000, validation_data=(val_x, val_y))
 
+# Visualisierung Plot
 plt.plot(history.history['loss'], label='Training loss')
 plt.plot(history.history['val_loss'], label='Validation loss')
 plt.title('Loss over Epochs')
@@ -58,8 +57,7 @@ plt.legend()
 plt.show()
 
 
-
-# Evaluieren des Modells (optional)
+# Evaluieren des Modells
 loss = model.evaluate(x, y)
 print(f'Loss auf den Trainingsdaten: {loss:.4f}')
  
@@ -68,8 +66,6 @@ predictions = model.predict(x)
 print(predictions)
 model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
  
-# Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
-
 
 #testpath = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Test.csv"
 #testdata = pd.read_csv(testpath, sep=';', decimal='.')
