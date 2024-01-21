@@ -16,11 +16,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 import seaborn as sns
  
-# Beispiel-Daten: Ein eindimensionales Array von Features und zugehörige Zielvariablen
-#X = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
-#y = np.array([2.0, 4.0, 6.0, 8.0, 10.0])
-
-# Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
 path = "/Users/MK/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv"
 
 data = pd.read_csv(path, sep=';', decimal='.')

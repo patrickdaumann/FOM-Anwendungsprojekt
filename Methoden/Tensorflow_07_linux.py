@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 17 16:28:00 2024
-@author: kesper
+Created on Sun Jan 21 14:10:23 2024
+@author: MK
 """
 
 import tensorflow as tf
@@ -9,7 +9,8 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import pandas as pd
 import matplotlib.pyplot as plt
- 
+
+
 path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 #path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 val_path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
@@ -34,7 +35,8 @@ print(val_y)
  
 # Erstellen eines einfachen neuronalen Netzwerks
 model = keras.Sequential([
-    layers.Dense(64, activation='relu', input_shape=(7,)),  # Eingabe ist 7-Dimensional
+    layers.Dense(128, activation='relu', input_shape=(7,)),  # Eingabe ist 7-Dimensional
+    layers.Dense(64, activation='relu'),
     layers.Dense(32, activation='relu'),
     layers.Dense(1)  # Die Ausgabe ist 1-dimensional
 ])
@@ -45,10 +47,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsau
 # Training des Modells
 #model.fit(x, y, epochs=15000)  # Wir verwenden die gleichen Daten für Training und Test
  
-history = model.fit(x, y, epochs=100, validation_data=(val_x, val_y))
-
-
-
+history = model.fit(x, y, epochs=15000, validation_data=(val_x, val_y))
 
 plt.plot(history.history['loss'], label='Training loss')
 plt.plot(history.history['val_loss'], label='Validation loss')
@@ -67,7 +66,7 @@ print(f'Loss auf den Trainingsdaten: {loss:.4f}')
 # Vorhersagen mit dem trainierten Modell
 predictions = model.predict(x)
 print(predictions)
-model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_001.h5")
+model.save("/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Models/train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moreLayers.h5")
  
 # Die Vorhersagen sollten nun nahe an den Zielvariablen liegen, da es sich um ein einfaches Beispiel handelt.
 

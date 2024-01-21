@@ -10,11 +10,6 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import pandas as pd
  
-# Beispiel-Daten: Ein eindimensionales Array von Features und zugehörige Zielvariablen
-#X = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
-#y = np.array([2.0, 4.0, 6.0, 8.0, 10.0])
-
-# Annahme: Ihre Daten sind in einer Datei mit dem Namen "data.csv"
 path = "/mnt/c/Users/Admin/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Full.csv"
 
 data = pd.read_csv(path, sep=';', decimal='.')
