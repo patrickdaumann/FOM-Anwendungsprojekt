@@ -23,7 +23,7 @@ data = pd.read_csv(path, sep=';', decimal='.')
 x = data[['cleanliness_rating', 'guests_satisfaction_overall', 'attractionscore_norm']]
 y = data[['realSum']]
  
-# Erstellen eines einfachen neuronalen Netzwerks
+# Erstellen eines eindimensionalen neuronalen Netzwerks
 model = keras.Sequential([
     layers.Dense(1, input_shape=(3,))  # Ein einzelnes Neuron, da wir nur eine Dimension haben
 ])
