@@ -1,0 +1,7 @@
+modelname,R2,MSE
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-5kepochs_002-PD.h5,0.6277658547899431,0.008013982477183422
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-10kepochs_002_PD.h5,0.6313211447486404,0.007937439172930053
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-10kepochs_001.h5,0.6365494699204972,0.007824876403362976
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_001.h5,0.6561374374101685,0.007403158970274511
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-15kepochs_002-moooooreLayers.h5,0.17408054127959682,0.01778156075933063
+train-csv-r_t_e-r_i_n-m_d-d-b-AS_N-c_e-50epochs_001.h5,0.6417270292945505,0.007713406591600207
