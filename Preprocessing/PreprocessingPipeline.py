@@ -110,12 +110,14 @@ else:
     print("Es wurden keine duplikate gefunden!")
 
 ############################ Kategorische Informationen Kodieren
-
+# Umsetzen der Kategorischen Spalteninhalte in Zahlenwerte für Maschine Learning
 categorical_columns = df.select_dtypes(include=['object']).columns
-#print("Categorical columns:", categorical_columns)
 
+# Dazu wird der Labelencoder von SciKitLearn verwendet
 le = LabelEncoder()
 
+#Iterieren der Kategorischen Spalten (Object Type in Pandas) und durchführen der Kodierung
+# Kodierte Spalten werden mit <spaltenname>_encoded imputiert
 for categorical_column in categorical_columns:
     df[f"{categorical_column}_encoded"] = le.fit_transform(df[categorical_column])
 
@@ -123,7 +125,7 @@ for categorical_column in categorical_columns:
 #print(df['room_type_encoded'])
 
 ############################ Boolische Werte in 0 & 1 konvertieren
-
+# Die Boolschen Werte werden in Integer Werte (0&1) konvertiert
 boolean_columns = ['room_shared','room_private','host_is_superhost']
 
 for column in boolean_columns:
@@ -131,10 +133,10 @@ for column in boolean_columns:
 
 
 ############################ Attraction Score hinzufuegen
-
+#Einlesen der Datenquelle für die ausgewaehlten Attraktionen
 attractions_df = pd.read_csv(attracttionsCSVPath, sep=';')
 
-#Staedtenamen in Lowercase wandeln
+#Staedtenamen in Lowercase wandeln damit sie mit Einträgen in der Airbnb Quelldatei zusammenpassen
 attractions_df['City'] = attractions_df['City'].str.lower()
 
 previous_city = None
@@ -144,6 +146,7 @@ for index, row in df.iterrows():
     #SubDF mit der passenden Stadt erzeugen
     city = row['city']
     
+    # City DF wird nur bei neuer City neu erstellt -> Performanzoptimierung
     if previous_city != city:
         subdf = attractions_df.query('City == @city')
     
@@ -160,9 +163,12 @@ for index, row in df.iterrows():
     #Iterieren des subdf und berechnungen durchführen (Iteration durch alle Attractions für die passende Stadt)
     for indexy, rowy in subdf.iterrows():
         
-        #Distanz berechnen
+        # Daten für die Berechnung ermitteln
+        # Distanz berechnen
         dist = round(geodesic(listingGeoLoc, (rowy['lat'], rowy['lng'])).kilometers, 2)
+        # Anzahl Ratings speichern
         ratings = rowy['ratings']
+        #Attractionsname speichern
         attractionname = rowy['Attraction']
         
         # Distanz und Ratinganzahl in Array abspeichern
@@ -173,18 +179,19 @@ for index, row in df.iterrows():
         if maxrating < ratings:
             maxrating = ratings
     
-    
-    #Formel für Score: (Bewertung/maxBewertung) * (100/Distanz zur Attraktion) und das summiert für jede Attraktion
+    # Berechnung des AttractionScore
+    # Formel für Score: (Bewertung/maxBewertung) * (100/Distanz zur Attraktion) und das summiert für jede Attraktion
     AttractionScore = 0
     for dist, ratings, attractionname in distances:
         AttractionScore += (ratings/maxrating) * (100/dist)
     
-    #Gerundeten Wert in Konsole ausgeben
+    # Gerundeten Wert in Konsole ausgeben, gespeicherter Wert wird nicht gerundet
     print(round(AttractionScore, 2))
     
-    #Wert in den DF am passenden Index einfuegen
+    # Wert in den DF am passenden Index einfuegen
     df.at[index, 'AttractionScore'] = AttractionScore
     
+    # Aktuellen City wert in Platzhalter Variable speichern -> Performanzoptimierung
     previous_city = row['city']
 
 
@@ -199,8 +206,10 @@ df.to_csv(exportFilePathDatenbeschreibung, index=False, sep=';')
 ############################### Informationen über alle metrischen Spalten erfassen und als CSV ausgeben
 stats_list = []
 
+# Definition der metrisch skalierten Spalten
 metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index', 'AttractionScore']]
 
+# Für metrische Spalten statistische Werte ermitteln und speichern
 for col in metric_data.columns:
     col_data = metric_data[col]
     stats_i = {
@@ -221,7 +230,7 @@ for col in metric_data.columns:
 stats_df = pd.DataFrame(stats_list)
 
 
-# DataFrame in CSV exportieren
+# Stats DataFrame in CSV exportieren
 stats_df.to_csv("/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Datenbeschreibung/Stats_VorBereinigung.csv", index=False, sep=';')
 
 
@@ -230,19 +239,19 @@ column = 'realSum'
 bins = 100
 
 
-# Bereinigung von Realsum 
+# Bereinigung von Realsum nach Z-Score Methode
 z_scores = stats.zscore(df['realSum'])
 threshold = 3
 df = df[(z_scores < threshold)]
 
 
-# Bereinigung von AttractionScore 
+# Bereinigung von AttractionScore nach Z-Score Methode
 z_scores = stats.zscore(df['AttractionScore'])
 threshold = 3
 df = df[(z_scores < threshold)]
 
-####################### Normalisierung der Daten
 
+####################### Normalisierung der Daten
 min_value = df['realSum'].min()
 max_value = df['realSum'].max()
 
@@ -261,14 +270,13 @@ plt.title('Boxplot für realSum_Normalized')
 plt.show()
 
 
-
 # Attraction scores Normalisieren
 AttracttionScoreMin = df['AttractionScore'].min()
 AttracttionScoreMax = df['AttractionScore'].max()
 
 df['AttractionScore_Norm'] = 100 * (df['AttractionScore'] - AttracttionScoreMin) / (AttracttionScoreMax - AttracttionScoreMin)
 
-############################## Aufteilen ist Train, Test und Validation Sets
+############################## Aufteilen in Train, Test und Validation Sets
 
 #Index des Dataframes zurücksetzen
 df.reset_index(drop=True, inplace=True)
@@ -299,17 +307,13 @@ print(df.head())
 
 # Boxplot der Werte
 df.boxplot(column='realSum', showfliers=False)
-
-# Titel und Achsenbeschriftungen hinzufügen
 plt.title('Boxplot für realSum')
-
-# Diagramm anzeigen
 plt.show()
 
 
 ############################## Export der Daten
 
-# Export ja nein ?
+# Export ja/nein ?
 if True:
     
     exportFilenamePrefix = 'Airbnb_Prices'
@@ -375,6 +379,7 @@ for column in metric_data.columns:
     
 
 ############################### Informationen über alle metrischen Spalten erfassen und als CSV ausgeben
+# Fuer Darstellung nach der Bereinigung
 stats_dict = {}
 stats_list = []
 
