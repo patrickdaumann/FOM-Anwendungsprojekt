@@ -10,28 +10,20 @@ from tensorflow.keras import layers
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
+#Pfad zu den Trainings und Validierungs-Daten
 path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
-#path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Train.csv"
 val_path = "/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
-#val_path = "/Users/patrick/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_V1.0_Val.csv"
 
+#Einlesen der Daten
 data = pd.read_csv(path, sep=';', decimal='.')
-
 x = data[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded',]].values
 y = data[['realSum_Normalized']].values
 
-
 val_data = pd.read_csv(path, sep=';', decimal='.')
-
 val_x = val_data[['room_type_encoded', 'rest_index_norm', 'metro_dist', 'dist', 'bedrooms', 'AttractionScore_Norm', 'city_encoded',]].values
 val_y = val_data[['realSum_Normalized']].values
-
-print(val_x)
-print(val_y)
-
  
-# Erstellen eines einfachen neuronalen Netzwerks
+# Erstellen eines einfachen mehrdimensionalen neuronalen Netzwerks
 model = keras.Sequential([
     layers.Dense(128, activation='relu', input_shape=(7,)),  # Eingabe ist 7-Dimensional
     layers.Dense(64, activation='relu'),
@@ -42,9 +34,7 @@ model = keras.Sequential([
 # Kompilieren des Modells
 model.compile(optimizer='adam', loss='mean_squared_error')  # Für Regressionsaufgaben
  
-# Training des Modells
-#model.fit(x, y, epochs=15000)  # Wir verwenden die gleichen Daten für Training und Test
- 
+# Training des Modells 
 history = model.fit(x, y, epochs=15000, validation_data=(val_x, val_y))
 
 # Visualisierung Plot
