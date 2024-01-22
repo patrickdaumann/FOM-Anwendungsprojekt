@@ -1,0 +1,241 @@
+Statistik für realSum:
+count    51304.000000
+mean       263.370824
+std        175.846065
+min         34.779339
+25%        148.423439
+50%        209.553376
+75%        315.267033
+max       1263.398266
+Name: realSum, dtype: float64
+
+Statistik für room_shared:
+count    51304.000000
+mean         0.007134
+std          0.084162
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          0.000000
+max          1.000000
+Name: room_shared, dtype: float64
+
+Statistik für room_private:
+count    51304.000000
+mean         0.363305
+std          0.480956
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          1.000000
+max          1.000000
+Name: room_private, dtype: float64
+
+Statistik für person_capacity:
+count    51304.000000
+mean         3.151450
+std          1.293033
+min          2.000000
+25%          2.000000
+50%          3.000000
+75%          4.000000
+max          6.000000
+Name: person_capacity, dtype: float64
+
+Statistik für host_is_superhost:
+count    51304.000000
+mean         0.256335
+std          0.436613
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          1.000000
+max          1.000000
+Name: host_is_superhost, dtype: float64
+
+Statistik für multi:
+count    51304.000000
+mean         0.291771
+std          0.454582
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          1.000000
+max          1.000000
+Name: multi, dtype: float64
+
+Statistik für biz:
+count    51304.000000
+mean         0.350441
+std          0.477113
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          1.000000
+max          1.000000
+Name: biz, dtype: float64
+
+Statistik für cleanliness_rating:
+count    51304.000000
+mean         9.389463
+std          0.953811
+min          2.000000
+25%          9.000000
+50%         10.000000
+75%         10.000000
+max         10.000000
+Name: cleanliness_rating, dtype: float64
+
+Statistik für guest_satisfaction_overall:
+count    51304.000000
+mean        92.610635
+std          8.934229
+min         20.000000
+25%         90.000000
+50%         95.000000
+75%         99.000000
+max        100.000000
+Name: guest_satisfaction_overall, dtype: float64
+
+Statistik für bedrooms:
+count    51304.000000
+mean         1.150826
+std          0.618111
+min          0.000000
+25%          1.000000
+50%          1.000000
+75%          1.000000
+max         10.000000
+Name: bedrooms, dtype: float64
+
+Statistik für dist:
+count    51304.000000
+mean         3.194854
+std          2.396655
+min          0.015059
+25%          1.455695
+50%          2.617870
+75%          4.265444
+max         25.284557
+Name: dist, dtype: float64
+
+Statistik für metro_dist:
+count    51304.000000
+mean         0.683201
+std          0.860579
+min          0.002301
+25%          0.248706
+50%          0.413828
+75%          0.740189
+max         14.273577
+Name: metro_dist, dtype: float64
+
+Statistik für attr_index:
+count    51304.000000
+mean       292.773617
+std        223.613246
+min         15.152201
+25%        135.997137
+50%        233.149609
+75%        383.624976
+max       4513.563486
+Name: attr_index, dtype: float64
+
+Statistik für attr_index_norm:
+count    51304.000000
+mean        13.308019
+std          9.621918
+min          0.926301
+25%          6.347412
+50%         11.416264
+75%         17.309468
+max        100.000000
+Name: attr_index_norm, dtype: float64
+
+Statistik für rest_index:
+count    51304.000000
+mean       625.251732
+std        497.533051
+min         19.576924
+25%        249.652522
+50%        520.669393
+75%        830.566841
+max       6696.156772
+Name: rest_index, dtype: float64
+
+Statistik für rest_index_norm:
+count    51304.000000
+mean        22.724786
+std         17.779631
+min          0.592757
+25%          8.719179
+50%         17.483539
+75%         32.891890
+max        100.000000
+Name: rest_index_norm, dtype: float64
+
+Statistik für lng:
+count    51304.000000
+mean         7.460614
+std          9.822852
+min         -9.226340
+25%         -0.071715
+50%          4.875960
+75%         16.228380
+max         23.786020
+Name: lng, dtype: float64
+
+Statistik für lat:
+count    51304.000000
+mean        45.634891
+std          5.247216
+min         37.953000
+25%         41.398030
+50%         47.505290
+75%         51.467140
+max         52.641410
+Name: lat, dtype: float64
+
+Statistik für room_type_encoded:
+count    51304.000000
+mean         0.377573
+std          0.499284
+min          0.000000
+25%          0.000000
+50%          0.000000
+75%          1.000000
+max          2.000000
+Name: room_type_encoded, dtype: float64
+
+Statistik für city_encoded:
+count    51304.000000
+mean         5.307013
+std          2.583495
+min          0.000000
+25%          4.000000
+50%          6.000000
+75%          7.000000
+max          9.000000
+Name: city_encoded, dtype: float64
+
+Statistik für daytype_encoded:
+count    51304.000000
+mean         0.506686
+std          0.499960
+min          0.000000
+25%          0.000000
+50%          1.000000
+75%          1.000000
+max          1.000000
+Name: daytype_encoded, dtype: float64
+
+Statistik für realSum_Normalized:
+count    51304.000000
+mean         0.186056
+std          0.143125
+min          0.000000
+25%          0.092497
+50%          0.142252
+75%          0.228295
+max          1.000000
+Name: realSum_Normalized, dtype: float64
