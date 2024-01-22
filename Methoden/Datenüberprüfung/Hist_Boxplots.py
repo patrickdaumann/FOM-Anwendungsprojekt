@@ -8,7 +8,7 @@ Created on Sun Jan  7 09:57:32 2024
 import pandas as pd
 
 # Aufteilen der Daten in separate Spalten
-airbnb_data = pd.read_csv("/Users/Dennis/Documents/GitHub/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv", sep=';',decimal='.', engine='python')
+airbnb_data = pd.read_csv("/mnt/c/Users/MK/FOM-Anwendungsprojekt/Data/Output/Airbnb_Prices_Full_V1.0_Full.csv", sep=';',decimal='.', engine='python')
 
 # Entfernen von führenden und nachfolgenden Leerzeichen in Spaltennamen
 airbnb_data.columns = [c.strip() for c in airbnb_data.columns]
