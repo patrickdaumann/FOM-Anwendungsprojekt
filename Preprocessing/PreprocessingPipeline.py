@@ -286,8 +286,8 @@ frac_train = 0.7  # Prozentsatz für den Trainingsdatensatz
 frac_test = 1 - frac_train  # Prozentsatz für den Testdatensatz (restliche Daten)
 
 # DataFrame in Trainings- und Testdaten aufteilen
-train_df = df.sample(frac=frac_train, random_state=42)  # Trainingsdaten
-test_df = df.drop(train_df.index).reset_index(drop=True)  # Testdaten
+train_df = df.sample(frac=frac_train, random_state=42)
+test_df = df.drop(train_df.index).reset_index(drop=True)
 
 test_df.reset_index(drop=True, inplace=True)
 
@@ -295,7 +295,7 @@ frac_test = 0.5
 frac_val = 1 - frac_test
 
 val_df = test_df.sample(frac=frac_val, random_state=42)
-test_df = test_df.drop(val_df.index).reset_index(drop=True)  # Validationsdaten
+test_df = test_df.drop(val_df.index).reset_index(drop=True)
 
 
 
@@ -357,12 +357,9 @@ if True:
 
 ############################ Verteilungsanalyse
 # Ziel: P Value der Normalverteilung für alle metrischen Columns ermitteln, Histogramme abspeichern
-
-# Ihre Daten auswählen
 metric_data = df[['realSum', 'person_capacity', 'bedrooms', 'dist', 'metro_dist', 'attr_index', 'rest_index', 'AttractionScore']]
 
 for column in metric_data.columns:
-    
     
     plt.figure(figsize=(6, 4))
     plt.hist(df[column], alpha=0.5, bins='auto')
